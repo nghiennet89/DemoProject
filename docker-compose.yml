@@ -10,12 +10,19 @@ services:
       - "8080:80"
     volumes:
       - ./:/var/www/html
+  app:
+    container_name: app
+    build: ./docker/php
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    command: >
+      sh -c "composer install"
   php:
     container_name: php
     build:
       context: ./
       dockerfile: ./docker/php/Dockerfile
     volumes:
-      - /var/www/html/vendor
       - ./:/var/www/html
     working_dir: /var/www/html
