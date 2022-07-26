@@ -1,7 +1,6 @@
-FROM php:8.1-fpm-alpine as base-system
+FROM php:8.1-fpm-alpine
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-FROM base-system
 WORKDIR /var/www/html
-COPY composer.json ./
-USER 1000
-RUN composer install
+COPY composer.* ./
+RUN composer install --no-autoloader
+
